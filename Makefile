@@ -11,6 +11,7 @@ create_env:
 	@echo "Installing python dependencies..."
 	conda run -n $(ENV_NAME) conda install -y pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvidia
 	conda run -n $(ENV_NAME) pip install -r requirements.txt
+	cp -r /nas/data/syamagami/GDA/data/GDA_DA_methods/data ./
 	cp -r /nas/data/syamagami/GDA/data/GDA_DA_methods/Separate_to_Adapt/pretrained_models ./
 
 # remove_envターゲット: condaの環境を削除
