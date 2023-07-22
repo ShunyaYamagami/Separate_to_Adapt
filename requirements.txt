@@ -1,0 +1,9 @@
+tensorflow
+tensorlayer
+tensorpack
+matplotlib
+opencv-python
+pillow
+python-prctl
+pandas
+pyyaml

@@ -141,17 +141,17 @@ class Logger(object):
         if clear:
             os.system('rm %s -r'%log_dir)
         tl.files.exists_or_mkdir(log_dir)
-        self.writer = tf.summary.FileWriter(log_dir)
+        # self.writer = tf.summary.FileWriter(log_dir)
         self.step = 0
         self.log_dir = log_dir
 
     def log_scalar(self, tag, value, step = None):
         if not step:
             step = self.step
-        summary = tf.Summary(value = [tf.Summary.Value(tag = tag,
-                                                     simple_value = value)])
-        self.writer.add_summary(summary, step)
-        self.writer.flush()
+        # summary = tf.Summary(value = [tf.Summary.Value(tag = tag,
+        #                                              simple_value = value)])
+        # self.writer.add_summary(summary, step)
+        # self.writer.flush()
 
     def log_images(self, tag, images, step = None):
         if not step:
@@ -169,14 +169,14 @@ class Logger(object):
             img = to_rgb_np(img)
             plt.imsave(s, img, format = 'png')
 
-            img_sum = tf.Summary.Image(encoded_image_string = s.getvalue(),
-                                       height = img.shape[0],
-                                       width = img.shape[1])
-            im_summaries.append(tf.Summary.Value(tag = '%s/%d' % (tag, nr),
-                                                 image = img_sum))
-        summary = tf.Summary(value = im_summaries)
-        self.writer.add_summary(summary, step)
-        self.writer.flush()
+            # img_sum = tf.Summary.Image(encoded_image_string = s.getvalue(),
+            #                            height = img.shape[0],
+            #                            width = img.shape[1])
+            # im_summaries.append(tf.Summary.Value(tag = '%s/%d' % (tag, nr),
+            #                                      image = img_sum))
+        # summary = tf.Summary(value = im_summaries)
+        # self.writer.add_summary(summary, step)
+        # self.writer.flush()
 
     def log_histogram(self, tag, values, step = None, bins = 1000):
         if not step:
@@ -194,9 +194,9 @@ class Logger(object):
         for c in counts:
             hist.bucket.append(c)
             
-        summary = tf.Summary(value=[tf.Summary.Value(tag=tag, histo=hist)])
-        self.writer.add_summary(summary, step)
-        self.writer.flush()
+        # summary = tf.Summary(value=[tf.Summary.Value(tag=tag, histo=hist)])
+        # self.writer.add_summary(summary, step)
+        # self.writer.flush()
 
     def log_bar(self, tag, values, xs = None, step = None):
         if not step:
@@ -221,9 +221,9 @@ class Logger(object):
             hist.bucket.append(0)
             hist.bucket.append(c)
 
-        summary = tf.Summary(value=[tf.Summary.Value(tag=tag, histo=hist)])
-        self.writer.add_summary(summary, self.step)
-        self.writer.flush()
+        # summary = tf.Summary(value=[tf.Summary.Value(tag=tag, histo=hist)])
+        # self.writer.add_summary(summary, self.step)
+        # self.writer.flush()
 
 class AccuracyCounter:
     def __init__(self):

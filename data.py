@@ -4,9 +4,12 @@ import tensorpack
 import time
 import random
 import numbers
-from scipy.misc import imread, imresize
-import tensorlayer as tl
+# from scipy.misc import imread, imresize
+from matplotlib.pyplot import imread as imread
+from PIL import Image
+
 from six.moves import cPickle
+############## import pickle as cPickle
 from utilities import *
 
 import warnings
@@ -30,7 +33,8 @@ class CustomDataLoader(object):
         self.ds1 = tensorpack.dataflow.BatchData(self.ds0, self.batch_size,remainder=remainder, use_list=False,) 
         
         # use 1 thread in test to avoid randomness (test should be deterministic)
-        self.ds2 = tensorpack.dataflow.PrefetchDataZMQ(self.ds1, nr_proc=self.num_threads if not remainder else 1)
+        # self.ds2 = tensorpack.dataflow.PrefetchDataZMQ(self.ds1, nr_proc=self.num_threads if not remainder else 1)
+        self.ds2 = tensorpack.dataflow.PrefetchDataZMQ(self.ds1)
         
         # required by tensorlayer package
         self.ds2.reset_state()
@@ -90,9 +94,10 @@ class BaseImageDataset(BaseDataset):
         super(BaseImageDataset, self).__init__(is_train, skip_pred, transform, sample_weight=sample_weight)
 
     def _get_one_data(self, data, label):
-        im = imread(data, mode='RGB')
+        # im = imread(data, mode='RGB')
+        im = imread(data)
         if self.imsize:
-            im = imresize(im, (self.imsize, self.imsize))
+            im = np.array(Image.fromarray(im).resize((self.imsize, self.imsize)))
         return im, label
 
 
