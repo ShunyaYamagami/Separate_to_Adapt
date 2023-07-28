@@ -26,7 +26,7 @@ def set_logger(save_dir):
     LOG_DEST = "log.txt"
     logging.basicConfig(
         level=logging.INFO,
-        format="[%(asctime)s] [%(filename)s: %(lineno)4d]: %(message)s",
+        format="[%(asctime)s] [%(filename)s: %(lineno)d]: %(message)s",
         datefmt="%y/%m/%d %H:%M:%S",
         handlers=[
             logging.FileHandler(os.path.join(save_dir, LOG_DEST)),
